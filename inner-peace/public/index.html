@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inner Peace - Supportive Counseling App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-light: #f8f9fa;
+            --secondary-light: #e9ecef;
+            --accent-calm: #a0d2db;
+            --accent-soft: #c8b6ff;
+            --text-primary: #495057;
+            --text-secondary: #6c757d;
+            --success-soft: #b5e48c;
+            --premium-gold: #ffd166;
+            --admin-color: #4361ee;
+            --member-color: #4cc9f0;
+            --shadow-soft: rgba(0, 0, 0, 0.05);
+            --shadow-medium: rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px var(--shadow-medium);
+            overflow: hidden;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: linear-gradient(120deg, var(--accent-calm), var(--accent-soft));
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: rotate(0deg) translate(0, 0); }
+            100% { transform: rotate(360deg) translate(0, 0); }
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .app-content {
+            display: flex;
+            flex: 1;
+        }
+
+        /* Login Section */
+        .login-section {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-right: 1px solid var(--secondary-light);
+            position: relative;
+            background-color: var(--primary-light);
+        }
+
+        .quote-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px var(--shadow-soft);
+            margin-bottom: 40px;
+            text-align: center;
+            border-left: 5px solid var(--premium-gold);
+            max-width: 500px;
+            transition: all 0.5s ease;
+        }
+
+        .quote {
+            font-size: 1.4rem;
+            font-style: italic;
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .author {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .login-form {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px var(--shadow-soft);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-title {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .form-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--secondary-light);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-calm);
+            box-shadow: 0 0 0 3px rgba(160, 210, 219, 0.2);
+        }
+
+        .role-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .role-btn {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            background: var(--secondary-light);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .role-btn.active {
+            background: var(--accent-calm);
+            color: white;
+        }
+
+        .btn {
+            padding: 16px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(120deg, var(--accent-calm), var(--accent-soft));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(160, 210, 219, 0.3);
+        }
+
+        /* Main App Section */
+        .main-section {
+            flex: 2;
+            padding: 40px;
+            display: none;
+            flex-direction: column;
+            background-color: white;
+        }
+
+        .user-info {
+            background: linear-gradient(120deg, var(--primary-light), var(--secondary-light));
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-role {
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .user-member {
+            background-color: var(--member-color);
+            color: white;
+        }
+
+        .user-admin {
+            background-color: var(--admin-color);
+            color: white;
+        }
+
+        .logout-btn {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 2px solid var(--secondary-light);
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: var(--secondary-light);
+        }
+
+        .post-form {
+            background-color: var(--primary-light);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 20px var(--shadow-soft);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 20px;
+            border: 2px solid var(--secondary-light);
+            border-radius: 10px;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 120px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-calm);
+            box-shadow: 0 0 0 3px rgba(160, 210, 219, 0.2);
+        }
+
+        .btn-secondary {
+            background: var(--accent-soft);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-calm);
+            transform: translateY(-2px);
+        }
+
+        .posts-container {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .post {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px var(--shadow-soft);
+            border: 1px solid var(--secondary-light);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px var(--shadow-medium);
+        }
+
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--secondary-light);
+        }
+
+        .post-author {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .post-time {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .post-content {
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .suggestions-container {
+            background-color: var(--primary-light);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .suggestion {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border-left: 4px solid var(--success-soft);
+        }
+
+        .suggestion-admin {
+            background-color: rgba(67, 97, 238, 0.1);
+            border-left-color: var(--admin-color);
+            position: relative;
+        }
+
+        .admin-badge {
+            background-color: var(--admin-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .suggestion-form {
+            margin-top: 20px;
+        }
+
+        .delete-btn {
+            background: transparent;
+            color: #e63946;
+            border: 1px solid #e63946;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .delete-btn:hover {
+            background-color: #e63946;
+            color: white;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .welcome-message {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+        }
+
+        /* Loading spinner */
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .app-content {
+                flex-direction: column;
+            }
+
+            .login-section {
+                border-right: none;
+                border-bottom: 1px solid var(--secondary-light);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                border-radius: 10px;
+            }
+
+            header {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .login-section, .main-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-dove"></i> Inner Peace</h1>
+            <p class="subtitle">A supportive space for sharing and healing</p>
+        </header>
+
+        <div class="app-content">
+            <!-- Login Section -->
+            <div class="login-section" id="loginSection">
+                <div class="quote-container">
+                    <p class="quote" id="quoteText">Happiness is not something ready-made. It comes from your own actions.</p>
+                    <p class="author" id="quoteAuthor">Dalai Lama</p>
+                </div>
+
+                <div class="login-form">
+                    <h2 class="form-title">Welcome to Inner Peace</h2>
+                    <p class="form-subtitle">Choose your role to continue</p>
+
+                    <div class="role-selector">
+                        <div class="role-btn active" id="memberBtn">Member</div>
+                        <div class="role-btn" id="adminBtn">Admin</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nickname" id="nicknameLabel">Choose Your Nickname</label>
+                        <input type="text" id="nickname" placeholder="Enter a supportive nickname...">
+                    </div>
+
+                    <div class="form-group hidden" id="passwordGroup">
+                        <label for="password">Admin Password</label>
+                        <input type="password" id="password" placeholder="Enter admin password...">
+                    </div>
+
+                    <button class="btn btn-primary" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i> Enter Inner Peace
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main App Section -->
+            <div class="main-section" id="mainSection">
+                <div class="user-info">
+                    <div>
+                        <h2>Welcome, <span id="currentUser">Guest</span></h2>
+                        <div class="user-role" id="userRoleDisplay">Member</div>
+                    </div>
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+
+                <!-- Post Form (only for members) -->
+                <div class="post-form" id="postForm">
+                    <h3><i class="fas fa-feather-alt"></i> Share Your Thoughts</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">Share what's on your mind. This is a safe, supportive space.</p>
+                    <textarea id="postContent" placeholder="What would you like to share today? Remember, this is a judgment-free zone..."></textarea>
+                    <button class="btn btn-secondary" id="submitPostBtn">
+                        <i class="fas fa-paper-plane"></i> Share Thought
+                    </button>
+                </div>
+
+                <!-- Posts Container -->
+                <div class="posts-container" id="postsContainer">
+                    <!-- Posts will be dynamically added here -->
+                    <div class="welcome-message" id="welcomeMessage">
+                        <h3><i class="fas fa-heart"></i> Welcome to Inner Peace</h3>
+                        <p>This is a safe space for sharing thoughts and receiving supportive suggestions.</p>
+                        <p style="margin-top: 20px;">Posts from our community will appear here. Be kind, be supportive.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API Configuration
+        const API_BASE_URL = window.location.origin + '/api';
+
+        // Happiness quotes database
+        const happinessQuotes = [
+            {
+                text: "Happiness is not something ready-made. It comes from your own actions.",
+                author: "Dalai Lama"
+            },
+            {
+                text: "The purpose of our lives is to be happy.",
+                author: "Dalai Lama"
+            },
+            {
+                text: "Happiness is when what you think, what you say, and what you do are in harmony.",
+                author: "Mahatma Gandhi"
+            },
+            {
+                text: "The greatest happiness you can have is knowing that you do not necessarily require happiness.",
+                author: "William Saroyan"
+            },
+            {
+                text: "Happiness is a choice that requires effort at times.",
+                author: "Aeschylus"
+            },
+            {
+                text: "Happiness is not in the mere possession of money; it lies in the joy of achievement, in the thrill of creative effort.",
+                author: "Franklin D. Roosevelt"
+            },
+            {
+                text: "The secret of happiness is freedom, the secret of freedom is courage.",
+                author: "Carrie Jones"
+            },
+            {
+                text: "Happiness is a direction, not a place.",
+                author: "Sydney J. Harris"
+            },
+            {
+                text: "The happiest people don't have the best of everything, they make the best of everything.",
+                author: "Anonymous"
+            },
+            {
+                text: "Find joy in the ordinary, and you'll discover extraordinary happiness.",
+                author: "Inner Peace"
+            }
+        ];
+
+        // App state
+        let currentUser = null;
+        let currentRole = 'member';
+        let quoteInterval;
+
+        // DOM Elements
+        const loginSection = document.getElementById('loginSection');
+        const mainSection = document.getElementById('mainSection');
+        const memberBtn = document.getElementById('memberBtn');
+        const adminBtn = document.getElementById('adminBtn');
+        const nicknameLabel = document.getElementById('nicknameLabel');
+        const passwordGroup = document.getElementById('passwordGroup');
+        const nicknameInput = document.getElementById('nickname');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('loginBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const currentUserSpan = document.getElementById('currentUser');
+        const userRoleDisplay = document.getElementById('userRoleDisplay');
+        const postForm = document.getElementById('postForm');
+        const postContent = document.getElementById('postContent');
+        const submitPostBtn = document.getElementById('submitPostBtn');
+        const postsContainer = document.getElementById('postsContainer');
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        const quoteText = document.getElementById('quoteText');
+        const quoteAuthor = document.getElementById('quoteAuthor');
+
+        // Initialize the app
+        async function init() {
+            // Set up event listeners
+            memberBtn.addEventListener('click', () => switchRole('member'));
+            adminBtn.addEventListener('click', () => switchRole('admin'));
+            loginBtn.addEventListener('click', handleLogin);
+            logoutBtn.addEventListener('click', handleLogout);
+            submitPostBtn.addEventListener('click', handlePostSubmit);
+
+            // Start quote rotation
+            rotateQuotes();
+            quoteInterval = setInterval(rotateQuotes, 10000);
+
+            // Load initial posts
+            await loadPosts();
+
+            // Auto-refresh posts every 10 seconds
+            setInterval(loadPosts, 10000);
+        }
+
+        // Load posts from API
+        async function loadPosts() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/posts`);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+                const posts = await response.json();
+                renderPosts(posts);
+            } catch (error) {
+                console.error('Error loading posts:', error);
+                // Don't show error notification on first load
+                if (postsContainer.children.length === 0) {
+                    welcomeMessage.innerHTML = `
+                        <h3><i class="fas fa-heart"></i> Welcome to Inner Peace</h3>
+                        <p>Loading posts from our community...</p>
+                        <p style="margin-top: 20px;"><i class="fas fa-spinner spinner"></i> Connecting to server...</p>
+                    `;
+                }
+            }
+        }
+
+        // Create new post via API
+        async function createPost(content) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/posts`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        author: currentUser,
+                        content: content
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to create post');
+                }
+
+                const newPost = await response.json();
+                showNotification('Post shared successfully!', 'success');
+                return newPost;
+            } catch (error) {
+                console.error('Error creating post:', error);
+                showNotification(error.message, 'error');
+                throw error;
+            }
+        }
+
+        // Add suggestion via API
+        async function addSuggestionToPost(postId, content) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/posts/${postId}/suggestions`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        author: currentUser,
+                        content: content,
+                        isAdmin: currentRole === 'admin'
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to add suggestion');
+                }
+
+                const newSuggestion = await response.json();
+                return newSuggestion;
+            } catch (error) {
+                console.error('Error adding suggestion:', error);
+                showNotification(error.message, 'error');
+                throw error;
+            }
+        }
+
+        // Delete post via API
+        async function deletePostFromAPI(postId) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/posts/${postId}?adminPassword=Nom%40123`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to delete post');
+                }
+
+                showNotification('Post deleted successfully', 'success');
+                return true;
+            } catch (error) {
+                console.error('Error deleting post:', error);
+                showNotification(error.message, 'error');
+                return false;
+            }
+        }
+
+        // Rotate happiness quotes
+        function rotateQuotes() {
+            const randomIndex = Math.floor(Math.random() * happinessQuotes.length);
+            const quote = happinessQuotes[randomIndex];
+
+            quoteText.style.opacity = '0';
+            quoteAuthor.style.opacity = '0';
+
+            setTimeout(() => {
+                quoteText.textContent = quote.text;
+                quoteAuthor.textContent = quote.author;
+                quoteText.style.opacity = '1';
+                quoteAuthor.style.opacity = '1';
+            }, 300);
+        }
+
+        // Switch between member and admin roles
+        function switchRole(role) {
+            currentRole = role;
+
+            memberBtn.classList.toggle('active', role === 'member');
+            adminBtn.classList.toggle('active', role === 'admin');
+
+            if (role === 'admin') {
+                nicknameLabel.textContent = "Admin Name";
+                nicknameInput.placeholder = "Enter admin display name...";
+                passwordGroup.classList.remove('hidden');
+            } else {
+                nicknameLabel.textContent = "Choose Your Nickname";
+                nicknameInput.placeholder = "Enter a supportive nickname...";
+                passwordGroup.classList.add('hidden');
+            }
+        }
+
+        // Handle login
+        async function handleLogin() {
+            const nickname = nicknameInput.value.trim();
+            const password = passwordInput.value;
+
+            if (!nickname) {
+                alert("Please enter a nickname");
+                return;
+            }
+
+            if (currentRole === 'admin') {
+                if (password !== "Nom@n123") {
+                    alert("Incorrect admin password. Please try again.");
+                    return;
+                }
+            }
+
+            currentUser = nickname;
+            currentUserSpan.textContent = nickname;
+            userRoleDisplay.textContent = currentRole === 'admin' ? 'Admin' : 'Member';
+            userRoleDisplay.className = `user-role user-${currentRole}`;
+
+            postForm.classList.toggle('hidden', currentRole === 'admin');
+
+            loginSection.classList.add('hidden');
+            mainSection.style.display = 'flex';
+            mainSection.classList.add('fade-in');
+
+            nicknameInput.value = '';
+            passwordInput.value = '';
+
+            // Reload posts after login
+            await loadPosts();
+        }
+
+        // Handle logout
+        function handleLogout() {
+            currentUser = null;
+            currentRole = 'member';
+
+            mainSection.style.display = 'none';
+            loginSection.classList.remove('hidden');
+            switchRole('member');
+        }
+
+        // Handle post submission
+        async function handlePostSubmit() {
+            const content = postContent.value.trim();
+
+            if (!content) {
+                alert("Please write something to share");
+                return;
+            }
+
+            // Disable button while posting
+            submitPostBtn.disabled = true;
+            submitPostBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sharing...';
+
+            try {
+                await createPost(content);
+                postContent.value = '';
+                await loadPosts();
+                postsContainer.scrollTop = 0;
+            } finally {
+                submitPostBtn.disabled = false;
+                submitPostBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Share Thought';
+            }
+        }
+
+        // Render all posts from API data
+        function renderPosts(postsData) {
+            if (postsData.length > 0) {
+                welcomeMessage.classList.add('hidden');
+            } else {
+                welcomeMessage.classList.remove('hidden');
+                welcomeMessage.innerHTML = `
+                    <h3><i class="fas fa-heart"></i> Welcome to Inner Peace</h3>
+                    <p>This is a safe space for sharing thoughts and receiving supportive suggestions.</p>
+                    <p style="margin-top: 20px;">No posts yet. Be the first to share something!</p>
+                `;
+            }
+
+            postsContainer.innerHTML = '';
+
+            if (postsData.length === 0) {
+                postsContainer.appendChild(welcomeMessage);
+                welcomeMessage.classList.remove('hidden');
+                return;
+            }
+
+            postsData.forEach(post => {
+                const postElement = createPostElement(post);
+                postsContainer.appendChild(postElement);
+            });
+        }
+
+        // Create a post element
+        function createPostElement(post) {
+            const postDiv = document.createElement('div');
+            postDiv.className = 'post fade-in';
+            postDiv.id = `post-${post.id}`;
+
+            const postHeader = document.createElement('div');
+            postHeader.className = 'post-header';
+
+            const deleteButton = currentRole === 'admin' ?
+                `<button class="delete-btn" onclick="handleDeletePost('${post.id}')">
+                    <i class="fas fa-trash"></i> Delete Post
+                </button>` : '';
+
+            postHeader.innerHTML = `
+                <div>
+                    <div class="post-author">${post.author}</div>
+                    <div class="post-time">${formatDate(post.timestamp)}</div>
+                </div>
+                ${deleteButton}
+            `;
+
+            const postContent = document.createElement('div');
+            postContent.className = 'post-content';
+            postContent.textContent = post.content;
+
+            const suggestionsDiv = document.createElement('div');
+            suggestionsDiv.className = 'suggestions-container';
+
+            if (post.suggestions && post.suggestions.length > 0) {
+                post.suggestions.forEach(suggestion => {
+                    const suggestionElement = createSuggestionElement(suggestion);
+                    suggestionsDiv.appendChild(suggestionElement);
+                });
+            }
+
+            const suggestionForm = document.createElement('div');
+            suggestionForm.className = 'suggestion-form';
+            suggestionForm.innerHTML = `
+                <textarea id="suggestion-${post.id}" placeholder="Share a supportive suggestion..." rows="2"></textarea>
+                <button class="btn-secondary" style="padding: 10px 20px; margin-top: 10px;" onclick="handleAddSuggestion('${post.id}')">
+                    <i class="fas fa-hands-helping"></i> Share Support
+                </button>
+            `;
+
+            postDiv.appendChild(postHeader);
+            postDiv.appendChild(postContent);
+            postDiv.appendChild(suggestionsDiv);
+            postDiv.appendChild(suggestionForm);
+
+            return postDiv;
+        }
+
+        // Create a suggestion element
+        function createSuggestionElement(suggestion) {
+            const suggestionDiv = document.createElement('div');
+            suggestionDiv.className = `suggestion ${suggestion.isAdmin ? 'suggestion-admin' : ''}`;
+
+            if (suggestion.isAdmin) {
+                suggestionDiv.innerHTML = `
+                    <div class="admin-badge"><i class="fas fa-shield-alt"></i> Admin Suggestion</div>
+                    <div><strong>${suggestion.author}:</strong> ${suggestion.content}</div>
+                `;
+            } else {
+                suggestionDiv.innerHTML = `
+                    <div><strong>${suggestion.author}:</strong> ${suggestion.content}</div>
+                `;
+            }
+
+            return suggestionDiv;
+        }
+
+        // Handle adding suggestion
+        async function handleAddSuggestion(postId) {
+            const textarea = document.getElementById(`suggestion-${postId}`);
+            const content = textarea.value.trim();
+
+            if (!content) {
+                alert("Please write a supportive suggestion");
+                return;
+            }
+
+            const button = textarea.nextElementSibling;
+            const originalText = button.innerHTML;
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
+
+            try {
+                await addSuggestionToPost(postId, content);
+                textarea.value = '';
+                await loadPosts();
+            } finally {
+                button.disabled = false;
+                button.innerHTML = originalText;
+            }
+        }
+
+        // Handle post deletion
+        async function handleDeletePost(postId) {
+            if (currentRole !== 'admin') {
+                alert("Only administrators can delete posts.");
+                return;
+            }
+
+            if (confirm("Are you sure you want to delete this post? This action cannot be undone.")) {
+                const success = await deletePostFromAPI(postId);
+                if (success) {
+                    await loadPosts();
+                }
+            }
+        }
+
+        // Format date for display
+        function formatDate(isoString) {
+            const date = new Date(isoString);
+            return date.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Show notification
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.position = 'fixed';
+            notification.style.top = '20px';
+            notification.style.right = '20px';
+            notification.style.padding = '15px 25px';
+            notification.style.backgroundColor = type === 'success' ? '#4CAF50' : '#f44336';
+            notification.style.color = 'white';
+            notification.style.borderRadius = '8px';
+            notification.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+            notification.style.zIndex = '1000';
+            notification.style.animation = 'fadeIn 0.3s ease';
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                from { opacity: 1; transform: translateY(0); }
+                to { opacity: 0; transform: translateY(-10px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Make functions globally available
+        window.handleDeletePost = handleDeletePost;
+        window.handleAddSuggestion = handleAddSuggestion;
+
+        // Start the app
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
